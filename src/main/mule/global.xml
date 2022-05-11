@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+
 <mule xmlns:api-gateway="http://www.mulesoft.org/schema/mule/api-gateway"
 	xmlns:tls="http://www.mulesoft.org/schema/mule/tls"
 	xmlns:os="http://www.mulesoft.org/schema/mule/os" xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties"
@@ -31,4 +32,28 @@ http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/m
 	<secure-properties:config name="Secure_Properties_Config" doc:name="Secure Properties Config" doc:id="c5c5ee4c-837b-4d79-969c-8c7626a1bdb2" file="${env}/${env}-secure.properties" key="${secureKey}" />
 	<api-gateway:autodiscovery apiId="${api.id}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="bf3e5d3b-8c66-45c3-b373-d2f6cfa243fa" flowRef="www-klarna-sapi-main" />
     	
+
+<mule xmlns:json-logger="http://www.mulesoft.org/schema/mule/json-logger" xmlns:api-gateway="http://www.mulesoft.org/schema/mule/api-gateway"
+	xmlns:tls="http://www.mulesoft.org/schema/mule/tls"
+	xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd
+http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd
+http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd
+http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/mule/api-gateway/current/mule-api-gateway.xsd
+http://www.mulesoft.org/schema/mule/json-logger http://www.mulesoft.org/schema/mule/json-logger/current/mule-json-logger.xsd">
+	<http:listener-config name="http_listener_config" doc:name="HTTP Listener config" doc:id="3dbb34dd-328a-4d5d-b415-4304126126cf" doc:description="http_listener_config" >
+		<http:listener-connection host="${http.host}" port="${http.port}" />
+	</http:listener-config>
+	<configuration-properties doc:name="Configuration properties" doc:id="5a619f31-eaa9-4299-8748-fd333b97e7bb" file="${env}/${env}-properties.yaml" doc:description="config-properties"/>
+	<apikit:config outboundHeadersMapName="outboundHeadersMapName" httpStatusVarName="httpStatus" doc:name="Router" doc:id="eef611cc-1523-4e98-804a-5adbb45e0a16" doc:description="router-config" name="www-sfcc-orders-eapi-config" api="api\www-sfcc-orders-eapi.raml" parser="RAML" raml="api\www-sfcc-orders-eapi.raml" />
+	<secure-properties:config name="Secure_Properties_Config" doc:name="Secure Properties Config" doc:id="cf645a27-f0ab-4b59-a07b-c79c9ac75937" doc:description="secure key and file config" file="${env}/${env}-secure.properties" key="${secure.key}" />
+	<http:request-config name="http_request_configuration" doc:name="HTTP Request configuration" doc:id="68b0894f-17ea-470f-95d9-47f0099d2807" basePath="${papi.basePath}" doc:description="process-api-request-config">
+		<http:request-connection host="${papi.host}">
+		</http:request-connection>
+	</http:request-config>
+	<api-gateway:autodiscovery apiId="${api.id}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="89e71712-1c51-41f8-ae61-4e08737ab5d1" flowRef="www-sfcc-orders-eapi-main" />
+	<json-logger:config name="JSON_Logger_Config" doc:name="JSON Logger Config" doc:id="f91ed64a-aac6-4c95-bbfb-31973c42c05f" doc:description="JSON_Logger_Config" environment="${env}" />
+	<configuration-properties doc:name="Configuration properties" doc:id="518c06c4-45d8-461b-8a4b-e6b73805ec6e" file="log-config.properties" doc:description="log-config.properties"/>
+
 </mule>

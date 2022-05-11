@@ -11,6 +11,7 @@ https:
     host: "0.0.0.0"
     port: "8092" 
 
+
 system:
   klarna:
     host: "api.playground.klarna.com"
@@ -23,6 +24,14 @@ system:
       us-host: "api-na.playground.klarna.com" # only for US
       other-host: "api.playground.klarna.com" # all other
 
+#papi request config
+papi:
+ host : "www-orders-papi.us-e2.cloudhub.io"
+ basePath: "/api/v2/order"
+ client_id : "b263e12ed9554ad2be30915e91ea7cb4"
+ client_secret : "903B21E5e96647539e9C3647E3d44f1C"
+
+
 #Enable https     
 tls:
   type: "JKS"
@@ -33,5 +42,6 @@ tls:
   
 api:
  id: "17716537"
+
     
   
