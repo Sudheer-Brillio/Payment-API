@@ -1,2 +1,1 @@
-Payment API enhanced POC contains all three layer of an API.
-
+Experience layer API for Payments.
