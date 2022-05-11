@@ -1,0 +1,349 @@
+#%RAML 1.0 DataType
+type: object
+properties:
+  purchase_country: 
+    required: true
+    type: string | nil
+    displayName: purchase_country
+    description: ""
+    example: DE
+  purchase_currency: 
+    required: true
+    type: string | nil
+    displayName: purchase_currency
+    description: ""
+    example: EUR
+  locale: 
+    required: true
+    type: string | nil
+    displayName: locale
+    description: ""
+    example: de-DE
+  billing_address:
+    type: object
+    required: false
+    properties:
+      title: 
+        required: false
+        type: string | nil
+        displayName: title
+        description: ""
+        example: ''
+      given_name: 
+        required: false
+        type: string | nil
+        displayName: given_name
+        description: ""
+        example: kushi
+      family_name: 
+        required: false
+        type: string | nil
+        displayName: family_name
+        description: ""
+        example: roy
+      email: 
+        required: false
+        type: string | nil
+        displayName: email
+        description: ""
+        example: ''
+      phone: 
+        required: false
+        type: string | nil
+        displayName: phone
+        description: ""
+        example: 983-743-2747
+      street_address: 
+        required: false
+        type: string | nil
+        displayName: street_address
+        description: ""
+        example: 1 Microsoft Way
+      street_address2: 
+        required: false
+        type: string | nil
+        displayName: street_address2
+        description: ""
+        example: ''
+      postal_code: 
+        required: false
+        type: string | nil
+        displayName: postal_code
+        description: ""
+        example: '95207'
+      city: 
+        required: false
+        type: string | nil
+        displayName: city
+        description: ""
+        example: Redmond
+      region: 
+        required: false
+        type: string | nil
+        displayName: region
+        description: ""
+        example: WA
+      country: 
+        required: false
+        type: string | nil
+        displayName: country
+        description: ""
+        example: US
+  shipping_address:
+    type: object
+    required: false
+    properties:
+      title: 
+        required: false
+        type: string | nil
+        displayName: title
+        description: ""
+        example: ''
+      given_name: 
+        required: false
+        type: string | nil
+        displayName: given_name
+        description: ""
+        example: kushi
+      family_name: 
+        required: false
+        type: string | nil
+        displayName: family_name
+        description: ""
+        example: roy
+      email: 
+        required: false
+        type: string | nil
+        displayName: email
+        description: ""
+        example: ''
+      phone: 
+        required: false
+        type: string | nil
+        displayName: phone
+        description: ""
+        example: 983-743-2747
+      street_address: 
+        required: false
+        type: string | nil
+        displayName: street_address
+        description: ""
+        example: 1 Microsoft Way
+      street_address2: 
+        required: false
+        type: string | nil
+        displayName: street_address2
+        description: ""
+        example: ''
+      postal_code: 
+        required: false
+        type: string | nil
+        displayName: postal_code
+        description: ""
+        example: '95207'
+      city: 
+        required: false
+        type: string | nil
+        displayName: city
+        description: ""
+        example: Redmond
+      region: 
+        required: false
+        type: string | nil
+        displayName: region
+        description: ""
+        example: WA
+      country: 
+        required: false
+        type: string | nil
+        displayName: country
+        description: ""
+        example: US
+  order_amount: 
+    required: true
+    type: number | nil
+    displayName: order_amount
+    description: ""
+    example: 32548
+  order_tax_amount: 
+    required: false
+    type: number | nil
+    displayName: order_tax_amount
+    description: ""
+    example: 1550
+  order_lines:
+    type: array
+    required: true
+    items:
+      type: object
+      properties:
+        type: 
+          required: false
+          type: string | nil
+          displayName: type
+          description: ""
+          example: physical
+        name: 
+          required: false
+          type: string | nil
+          displayName: name
+          description: ""
+          example: Charcoal Single Pleat Striped Wool Suit
+        reference: 
+          required: false
+          type: string | nil
+          displayName: reference
+          description: ""
+          example: 640188016372M
+        quantity: 
+          required: false
+          type: number | nil
+          displayName: quantity
+          description: ""
+          example: 1
+        merchant_data: 
+          required: false
+          type: string | nil
+          displayName: merchant_data
+          description: ""
+          example: ''
+        unit_price: 
+          required: false
+          type: number | nil
+          displayName: unit_price
+          description: ""
+          example: 29999
+        tax_rate: 
+          required: false
+          type: number | nil
+          displayName: tax_rate
+          description: ""
+          example: 0
+        total_amount: 
+          required: false
+          type: number | nil
+          displayName: total_amount
+          description: ""
+          example: 29999
+        total_tax_amount: 
+          required: false
+          type: number | nil
+          displayName: total_tax_amount
+          description: ""
+          example: 0
+        total_discount_amount: 
+          required: false
+          type: number | nil
+          displayName: total_discount_amount
+          description: ""
+          example: 0
+        product_url: 
+          required: false
+          type: string | nil
+          displayName: product_url
+          description: ""
+          example: https://aako-007.sandbox.us01.dx.commercecloud.salesforce.com/s/RefArch/charcoal-single-pleat-striped-wool-suit/640188016372M.html?lang=en_US
+        image_url: 
+          required: false
+          type: string | nil
+          displayName: image_url
+          description: ""
+          example: https://aako-007.sandbox.us01.dx.commercecloud.salesforce.com/on/demandware.static/-/Sites-apparel-m-catalog/default/dweeec1db4/images/small/PG.55360RUBN4Q.CHARCWL.PZ.jpg
+        product_identifiers:
+          type: object
+          required: false
+          properties:
+            category_path: 
+              required: false
+              type: string | nil
+              displayName: category_path
+              description: ""
+              example: Mens > Clothing > Suits
+  merchant_reference2: 
+    required: false
+    type: string | nil
+    displayName: merchant_reference2
+    description: ""
+    example: ''
+  options:
+    type: object
+    required: false
+    properties:
+      color_details: 
+        required: false
+        type: string | nil
+        displayName: color_details
+        description: ""
+        example: "#303030"
+      color_button: 
+        required: false
+        type: string | nil
+        displayName: color_button
+        description: ""
+        example: "#303030"
+      color_button_text: 
+        required: false
+        type: string | nil
+        displayName: color_button_text
+        description: ""
+        example: "#303030"
+      color_checkbox: 
+        required: false
+        type: string | nil
+        displayName: "#303030"
+        description: ""
+        example: color_checkbox
+      color_checkbox_checkmark: 
+        required: false
+        type: string | nil
+        displayName: color_checkbox_checkmark
+        description: ""
+        example: "#303030"
+      color_header: 
+        required: false
+        type: string | nil
+        displayName: color_header
+        description: ""
+        example: "#303030"
+      color_link: 
+        required: false
+        type: string | nil
+        displayName: color_link
+        description: ""
+        example: "#303030"
+      color_border: 
+        required: false
+        type: string | nil
+        displayName: color_border
+        description: ""
+        example: "#303030"
+      color_border_selected: 
+        required: false
+        type: string | nil
+        displayName: color_border_selected
+        description: ""
+        example: "#303030"
+      color_text: 
+        required: false
+        type: string | nil
+        displayName: color_text
+        description: ""
+        example: "#303030"
+      color_text_secondary: 
+        required: false
+        type: string | nil
+        displayName: color_text_secondary
+        description: ""
+        example: "#303030"
+      radius_border: 
+        required: false
+        type: string | nil
+        displayName: radius_border
+        description: ""
+        example: 0px
+  merchant_data:
+    required: false
+    type: string | nil
+    displayName: merchant_data
+    description: ""
+    example: null

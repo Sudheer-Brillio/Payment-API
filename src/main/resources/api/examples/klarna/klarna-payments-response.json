@@ -1,0 +1,37 @@
+{
+  "session_id": "06b65c22-adba-4eb5-8f8a-b2bfe68c715a",
+  "client_token": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjgyMzA1ZWJjLWI4MTEtMzYzNy1hYTRjLTY2ZWNhMTg3NGYzZCJ9.eyJzZXNzaW9uX2lkIjoiMDZiNjVjMjItYWRiYS00ZWI1LThmOGEtYjJiZmU2OGM3MTVhIiwiYmFzZV91cmwiOiJodHRwczovL2pzLnBsYXlncm91bmQua2xhcm5hLmNvbS9ldS9rcCIsImRlc2lnbiI6ImtsYXJuYSIsImxhbmd1YWdlIjoiZGUiLCJwdXJjaGFzZV9jb3VudHJ5IjoiREUiLCJlbnZpcm9ubWVudCI6InBsYXlncm91bmQiLCJtZXJjaGFudF9uYW1lIjoiWW91ciBidXNpbmVzcyBuYW1lIiwic2Vzc2lvbl90eXBlIjoiUEFZTUVOVFMiLCJjbGllbnRfZXZlbnRfYmFzZV91cmwiOiJodHRwczovL2V1LnBsYXlncm91bmQua2xhcm5hZXZ0LmNvbSIsInNjaGVtZSI6dHJ1ZSwiZXhwZXJpbWVudHMiOlt7Im5hbWUiOiJrcC1jbGllbnQtdXRvcGlhLXN0YXRpYy13aWRnZXQiLCJ2YXJpYXRlIjoiaW5kZXgiLCJwYXJhbWV0ZXJzIjp7InZhcmlhdGVfaWQiOiJpbmRleCJ9fSx7Im5hbWUiOiJpbi1hcHAtc2RrLW5ldy1pbnRlcm5hbC1icm93c2VyIiwidmFyaWF0ZSI6Im5ldy1pbnRlcm5hbC1icm93c2VyLWVuYWJsZSIsInBhcmFtZXRlcnMiOnsidmFyaWF0ZV9pZCI6Im5ldy1pbnRlcm5hbC1icm93c2VyLWVuYWJsZSJ9fSx7Im5hbWUiOiJrcC1jbGllbnQtdXRvcGlhLXNkay1mbG93IiwidmFyaWF0ZSI6InZhcmlhdGUtMSIsInBhcmFtZXRlcnMiOnsidmFyaWF0ZV9pZCI6InZhcmlhdGUtMSJ9fSx7Im5hbWUiOiJrcC1jbGllbnQtdXRvcGlhLXdlYnZpZXctZmxvdyIsInZhcmlhdGUiOiJ2YXJpYXRlLTEiLCJwYXJhbWV0ZXJzIjp7InZhcmlhdGVfaWQiOiJ2YXJpYXRlLTEifX0seyJuYW1lIjoiaW4tYXBwLXNkay1jYXJkLXNjYW5uaW5nIiwidmFyaWF0ZSI6ImNhcmQtc2Nhbm5pbmctZW5hYmxlIiwicGFyYW1ldGVycyI6eyJ2YXJpYXRlX2lkIjoiY2FyZC1zY2FubmluZy1lbmFibGUifX1dLCJyZWdpb24iOiJldSIsInVhX2VuYWJsZWRfYW5kX29uZV9wbSI6ZmFsc2V9.lor6mpLLnKtL1I65AFD6RgnLDc4w_1T-rK06u35YYRu8ipzy46KZaAwZKVpkN8jY9uKrOvdb1RLXgOQYhZ5uyH1-VuYVrzRxEgiFRibHs5LXR5wu2kBWPdsVVUoZZuU29YdVu0D3YmgFy-I0NQfSgFZ6RKHVXxONHvvXg8iJqA6I6x52VpgzmN-0dAiFc2AwV-WLCVYk2gUTrmW_h7oaO0OY-W7fqZEVNNn3schlpO5mH6jt7SQ2KvDD0OA5BRnN9bdLxnwU9qzvcCUsK8nqWAof8LZqtiNZz1kJzY7ClS58py2KbYRH1Ob0hNcL2yAaVszIVd_ibVuB8Bd2nsj8XA",
+  "payment_method_categories": [
+    {
+      "identifier": "pay_over_time",
+      "name": "Ratenkauf",
+      "asset_urls": {
+        "descriptive": "https://x.klarnacdn.net/payment-method/assets/badges/generic/klarna.svg",
+        "standard": "https://x.klarnacdn.net/payment-method/assets/badges/generic/klarna.svg"
+      }
+    },
+    {
+      "identifier": "pay_later",
+      "name": "Rechnung",
+      "asset_urls": {
+        "descriptive": "https://x.klarnacdn.net/payment-method/assets/badges/generic/klarna.svg",
+        "standard": "https://x.klarnacdn.net/payment-method/assets/badges/generic/klarna.svg"
+      }
+    },
+    {
+      "identifier": "direct_bank_transfer",
+      "name": "SofortÃ¼berweisung",
+      "asset_urls": {
+        "descriptive": "https://x.klarnacdn.net/payment-method/assets/badges/generic/klarna.svg",
+        "standard": "https://x.klarnacdn.net/payment-method/assets/badges/generic/klarna.svg"
+      }
+    }
+  ],
+  "descriptor": {
+    "tagline": "Choose your way to pay",
+    "asset_urls": {
+      "descriptive": "https://x.klarnacdn.net/payment-method/assets/badges/generic/klarna.svg",
+      "standard": "https://x.klarnacdn.net/payment-method/assets/badges/generic/klarna.svg"
+    }
+  }
+}
