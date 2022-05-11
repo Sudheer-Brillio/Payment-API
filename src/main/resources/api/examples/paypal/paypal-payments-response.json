@@ -1,0 +1,204 @@
+{
+  "id": "PAY-1B56960729604235TKQQIYVY",
+  "create_time": "2017-09-22T20:53:43Z",
+  "update_time": "2017-09-22T20:53:44Z",
+  "state": "CREATED",
+  "intent": "sale",
+  "payer": {
+    "payment_method": "paypal"
+  },
+  "transactions": [
+    {
+      "amount": {
+        "total": "30.11",
+        "currency": "USD",
+        "details": {
+          "subtotal": "30.00",
+          "tax": "0.07",
+          "shipping": "0.03",
+          "handling_fee": "1.00",
+          "insurance": "0.01",
+          "shipping_discount": "-1.00"
+        }
+      },
+      "description": "The payment transaction description.",
+      "custom": "EBAY_EMS_90048630024435",
+      "invoice_number": "48787589673",
+      "item_list": {
+        "items": [
+          {
+            "name": "hat",
+            "sku": "1",
+            "price": "3.00",
+            "currency": "USD",
+            "quantity": "5",
+            "description": "Brown hat.",
+            "tax": "0.01"
+          },
+          {
+            "name": "handbag",
+            "sku": "product34",
+            "price": "15.00",
+            "currency": "USD",
+            "quantity": "1",
+            "description": "Black handbag.",
+            "tax": "0.02"
+          }
+        ],
+        "shipping_address": {
+          "recipient_name": "Brian Robinson",
+          "line1": "4th Floor",
+          "line2": "Unit #34",
+          "city": "San Jose",
+          "state": "CA",
+          "phone": "011862212345678",
+          "postal_code": "95131",
+          "country_code": "US"
+        }
+      }
+    }
+  ],
+  "links": [
+    {
+      "href": "https://api-m.sandbox.paypal.com/v1/payments/payment/PAY-1B56960729604235TKQQIYVY",
+      "rel": "self",
+      "method": "GET"
+    },
+    {
+      "href": "https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-60385559L1062554J",
+      "rel": "approval_url",
+      "method": "REDIRECT"
+    },
+    {
+      "href": "https://api-m.sandbox.paypal.com/v1/payments/payment/PAY-1B56960729604235TKQQIYVY/execute",
+      "rel": "execute",
+      "method": "POST"
+  "id": "6WU455923F879071T",
+  "intent": "CAPTURE",
+  "status": "COMPLETED",
+  "payment_source": {
+    "apple_pay": {
+      "card": {
+        "name": "Randy Oscar",
+        "last_digits": "4672",
+        "brand": "VISA",
+        "type": "CREDIT",
+        "billing_address": {
+          "address_line_1": "2211 N First Street",
+          "address_line_2": "Building 17",
+          "admin_area_2": "San Jose",
+          "admin_area_1": "CA",
+          "postal_code": "95131",
+          "country_code": "US"
+        }
+      }
+    }
+  },
+  "purchase_units": [
+    {
+      "reference_id": "REFID-000-1001",
+      "amount": {
+        "currency_code": "CAD",
+        "value": "10.00"
+      },
+      "payee": {
+        "merchant_id": "CWL4VKR4T8VE2"
+      },
+      "payment_instruction": {
+        "platform_fees": [
+          {
+            "amount": {
+              "currency_code": "CAD",
+              "value": "1.00"
+            },
+            "payee": {
+              "merchant_id": "FCDNN9FSYBZK4"
+            }
+          }
+        ],
+        "disbursement_mode": "INSTANT",
+        "payee_pricing_tier_id": "999ZAE"
+      },
+      "soft_descriptor": "PP *SOFT-1001",
+      "payments": {
+        "captures": [
+          {
+            "id": "45E71580WN564964G",
+            "status": "COMPLETED",
+            "amount": {
+              "currency_code": "CAD",
+              "value": "10.00"
+            },
+            "final_capture": true,
+            "disbursement_mode": "INSTANT",
+            "seller_protection": {
+              "status": "INELIGIBLE"
+            },
+            "seller_receivable_breakdown": {
+              "gross_amount": {
+                "currency_code": "CAD",
+                "value": "10.00"
+              },
+              "paypal_fee": {
+                "currency_code": "CAD",
+                "value": "0.59"
+              },
+              "platform_fees": [
+                {
+                  "amount": {
+                    "currency_code": "CAD",
+                    "value": "1.00"
+                  },
+                  "payee": {
+                    "merchant_id": "FCDNN9FSYBZK4"
+                  }
+                }
+              ],
+              "net_amount": {
+                "currency_code": "CAD",
+                "value": "8.41"
+              },
+              "receivable_amount": {
+                "currency_code": "USD",
+                "value": "8.20"
+              },
+              "exchange_rate": {
+                "source_currency": "CAD",
+                "target_currency": "USD",
+                "value": "0.974805272898685"
+              }
+            },
+            "links": [
+              {
+                "href": "https://api-m.paypal.com/v2/payments/captures/45E71580WN564964G",
+                "rel": "self",
+                "method": "GET"
+              },
+              {
+                "href": "https://api-m.paypal.com/v2/payments/captures/45E71580WN564964G/refund",
+                "rel": "refund",
+                "method": "POST"
+              },
+              {
+                "href": "https://api-m.paypal.com/v2/checkout/orders/6WU455923F879071T",
+                "rel": "up",
+                "method": "GET"
+              }
+            ],
+            "create_time": "2020-07-13T22:52:43Z",
+            "update_time": "2020-07-13T22:52:43Z"
+          }
+        ]
+      }
+    }
+  ],
+  "create_time": "2020-07-13T22:52:43Z",
+  "update_time": "2020-07-13T22:52:43Z",
+  "links": [
+    {
+      "href": "https://api-m.paypal.com/v2/checkout/orders/6WU455923F879071T",
+      "rel": "self",
+      "method": "GET"
+    }
+  ]
+}

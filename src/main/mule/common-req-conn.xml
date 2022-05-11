@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:os="http://www.mulesoft.org/schema/mule/os" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/os http://www.mulesoft.org/schema/mule/os/current/mule-os.xsd">
+	<flow name="paypal-http-req-con-flow" doc:id="dd96cac5-cb7c-4192-abb8-b6027d425280" >
+		<http:request method="POST" doc:name="Request" doc:id="4880f728-a683-474d-af70-61df76700746" path="${system.paypal.path.payments}" config-ref="HTTP_Request_configuration_paypal">
+					<http:headers><![CDATA[#[output application/java
+---
+{
+	"Authorization" : vars.paypalToken,
+	'PayPal-Request-Id' : vars.'PayPal-Request-Id'
+	
+}]]]></http:headers>
+				</http:request>
+		<error-handler>
+			<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="d4cbba99-1efe-474c-b352-23f81c65c678" >
+				<ee:transform doc:name="Transform Message" doc:id="637c40f1-0ac1-4059-9304-d15c7f092001">
+					<ee:message>
+						<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+error.errorMessage]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+				<set-variable value="#[error.errorMessage.attributes.statusCode]" doc:name="Set Variable" doc:id="0624f2db-70bc-4073-a2ef-cdf95edddb48" variableName="httpStatus"/>
+			</on-error-propagate>
+		</error-handler>
+	</flow>
+	<flow name="common-paypal-req-conn-flow" doc:id="89ea7fcb-fff8-4843-8746-9f5b02480e0e" >
+		<flow-ref doc:name="Flow Reference" doc:id="1fa9c214-a701-4f57-81c5-f551aba1e1a3" name="get-oauth-from-objectstore-flow-paypal" target="oAuthTokenRes"/>
+		<choice doc:name="Choice" doc:id="8fb0c42a-876e-4f24-8391-0b379079bcfc" >
+			<when expression="#[vars.oAuthTokenRes != null]">
+				<set-variable value='#["Bearer " ++ vars.oAuthTokenRes.access_token]' doc:name="Set Variable" doc:id="31f7ead1-532f-4d3d-8632-6377ad9435ce" variableName="paypalToken"/>
+				<flow-ref doc:name="paypal-http-req-con-flow" doc:id="63d01292-a26e-4b97-bd19-e72d1f50ad11" name="paypal-http-req-con-flow"/>
+			</when>
+			<otherwise>
+				<flow-ref doc:name="paypal-oauth-req-connection" doc:id="0f885e37-5bcf-4d9f-a8a5-90065f6d2b25" name="paypal-oauth-req-connection"/>
+				<set-variable value='#["Bearer " ++ vars.oAuthTokenRes.access_token]' doc:name="paypalToken" doc:id="fb730423-623a-4fe7-889d-28e5818b8a23" variableName="paypalToken" />
+				<flow-ref doc:name="paypal-http-req-con-flow" doc:id="dffc14d7-e1bf-49e9-b511-9e5e9e5e80f6" name="paypal-http-req-con-flow"/>
+			</otherwise>
+		</choice>
+	</flow>
+	<flow name="paypal-oauth-req-connection" doc:id="5f676f49-7988-4ea3-a2d5-0e05665bed26" >
+		<ee:transform doc:name="Transform Message" doc:id="8a9f372e-ebab-4083-8127-1c59c41f1545" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/x-www-form-urlencoded
+---
+{
+	grant_type: Mule::p('system.paypal.grant_type')
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="e95164ca-b2ec-4028-a199-1764f43d8568" message="#[payload]"/>
+		<http:request method="POST" doc:name="Request" doc:id="3b55c49e-ee6d-420f-a82e-6e67effd8dc2" config-ref="HTTP_Request_configuration_oauth" path="${system.paypal.path.oauth}"/>
+		<ee:transform doc:name="Transform Message" doc:id="bdb10e4b-a154-4931-aff6-329e68b61d41" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	access_token: payload.access_token
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<os:store doc:name="Store" doc:id="0b6befcb-a9d4-48b8-a995-db43f3ab4024" key="paypalOauth" objectStore="Object_store"/>
+	</flow>
+	<flow name="schedule-oauth-token-cache-flow-paypal" doc:id="3104123f-495c-4f93-bec5-410951965572" >
+		<scheduler doc:name="Scheduler" doc:id="e6ea6283-bd21-45f5-92de-7afa93f6ed52" >
+			<scheduling-strategy >
+				<fixed-frequency frequency="30" timeUnit="MINUTES"/>
+			</scheduling-strategy>
+		</scheduler>
+		<flow-ref doc:name="Flow Reference" doc:id="45379e1f-1977-4c0b-9094-ad180cbcf685" name="paypal-oauth-req-connection"/>
+	</flow>
+	<flow name="get-oauth-from-objectstore-flow-paypal" doc:id="6d9f3ace-1950-4427-a45d-b652d2e8d989" >
+		<os:retrieve doc:name="Retrieve Oauth Token" doc:id="66ce2829-6dae-45b6-a9e6-f3dbd7cb1f41" key="paypalOauth" objectStore="Object_store">
+			<os:default-value><![CDATA[null]]></os:default-value>
+		</os:retrieve>
+		<ee:transform doc:name="Transform Message" doc:id="6c77a09d-6038-4a90-a406-e5ed28165560" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>
