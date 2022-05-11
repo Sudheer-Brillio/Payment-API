@@ -10,6 +10,9 @@
 
     <Appenders>
 
+        <RollingFile name="file" fileName="${sys:mule.home}${sys:file.separator}logs${sys:file.separator}www-orders-papi.log"
+                 filePattern="${sys:mule.home}${sys:file.separator}logs${sys:file.separator}www-orders-papi-%i.log">
+
         <RollingFile name="file" fileName="${sys:mule.home}${sys:file.separator}logs${sys:file.separator}www-paypal-sapi.log"
                  filePattern="${sys:mule.home}${sys:file.separator}logs${sys:file.separator}www-paypal-sapi-%i.log">
 
@@ -19,6 +22,7 @@
 
         <RollingFile name="file" fileName="${sys:mule.home}${sys:file.separator}logs${sys:file.separator}www-sfcc-orders-eapi.log"
                  filePattern="${sys:mule.home}${sys:file.separator}logs${sys:file.separator}www-sfcc-orders-eapi-%i.log">
+
 
 
             <PatternLayout pattern="%-5p %d [%t] [processor: %X{processorPath}; event: %X{correlationId}] %c: %m%n"/>
