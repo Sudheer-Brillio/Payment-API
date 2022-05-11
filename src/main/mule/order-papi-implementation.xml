@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:json-logger="http://www.mulesoft.org/schema/mule/json-logger" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/json-logger http://www.mulesoft.org/schema/mule/json-logger/current/mule-json-logger.xsd">
+	<flow name="order-papi-implementation-flow" doc:id="8237bfeb-f432-4024-bb5d-cc7d58630e15" >
+		<json-logger:logger doc:name="Start" doc:id="f6993128-d7d1-4b12-af14-c9424fc071e1" config-ref="JSON_Logger_Config" message="Start Of Flow : order-papi-implementation-flow"/>
+		<ee:transform doc:name="request payload" doc:id="f3dbd72c-3505-48f1-8ac2-65f34880674d" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="headerValue" ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"client_id" : attributes.header.'client_id',
+	"client_secret" : attributes.header.'client_secret'
+}]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<choice doc:name="Check x-payment-type" doc:id="3516182c-1c65-43ff-b7d5-12e4d075192a" >
+			<when expression="#[attributes.headers.'x-payment-type' == &quot;klarna&quot;]">
+				<http:request method="POST" doc:name="Call SYS Kalrna API" doc:id="f4c6747e-fe10-4fcf-8638-c1bd8febe231" path="#[(attributes.headers.'x-payment-type')++&quot;/payments&quot;]" config-ref="HTTP_Request_configuration_Klaran">
+			<http:headers><![CDATA[#[%dw 2.0
+output application/json
+---
+{
+	"client_id" : p('sapi.kla_client_id'),
+	"client_secret" : p('sapi.kla_client_secret'),
+	"x-request-id" : if(attributes.headers.'x-request-id'?)attributes.headers.'x-request-id' else correlationId
+}]]]></http:headers>
+		</http:request>
+			</when>
+			<otherwise >
+				<http:request method="POST" doc:name="Call SYS Paypal API" doc:id="3349e665-4af3-43c8-a0d6-46bcfd017c4f" config-ref="HTTP_Request_configuration_Paypal" path="#[(attributes.headers.'x-payment-type')++&quot;/payments&quot;]" >
+					<http:headers ><![CDATA[#[%dw 2.0
+output application/json
+---
+{
+	"client_id" : p('sapi.pay_client_id'),
+	"client_secret" : p('sapi.pay_client_secret'),
+	"PayPal-Request-Id": if(attributes.headers.'x-request-id'?)attributes.headers.'x-request-id' else correlationId
+}]]]></http:headers>
+				</http:request>
+			</otherwise>
+		</choice>
+		<ee:transform doc:name="response" doc:id="7181a820-4ce0-485b-a65c-4bc5ffc1556c" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<json-logger:logger doc:name="End" doc:id="05bbdca2-27fb-4a75-96b8-b903f63e8cb8" config-ref="JSON_Logger_Config" message="End Of Flow : order-papi-implementation-flow"/>
+	</flow>
+</mule>

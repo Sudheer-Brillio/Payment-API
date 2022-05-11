@@ -1,0 +1,265 @@
+#%RAML 1.0 DataType
+type: object
+properties:
+  intent:
+    required: false
+    type: string | nil
+    displayName: intent
+    description: ""
+    example: "sale"
+  payer:
+    type: object
+    required: false
+    properties:
+      payment_method:
+        required: false
+        type: string | nil
+        displayName: payment_method
+        description: ""
+        example: "paypal"
+      transactions:
+        type: array
+        required: false
+        items:
+          type: object
+          properties:
+            amount:
+              type: object
+              properties:
+                total:
+                  required: false
+                  type: string | nil
+                  displayName: total
+                  description: ""
+                  example: "30.11"
+                currency:
+                  required: false
+                  type: string | nil
+                  displayName: currency
+                  description: ""
+                  example: "USD"
+                details:
+                  type: object
+                  properties:
+                    subtotal:
+                      required: false
+                      type: string | nil
+                      displayName: subtotal
+                      description: ""
+                      example: "30.00"
+                    tax:
+                      required: false
+                      type: string | nil
+                      displayName: tax
+                      description: ""
+                      example: "0.07"
+                    shipping:
+                      required: false
+                      type: string | nil
+                      displayName: shipping
+                      description: ""
+                      example: "0.03"
+                    handling_fee:
+                      required: false
+                      type: string | nil
+                      displayName: handling_fee
+                      description: ""
+                      example: "1.00"
+                    shipping_discount:
+                      required: false
+                      type: string | nil
+                      displayName: shipping_discount
+                      description: ""
+                      example: "-1.00"
+                    insurance:
+                      required: false
+                      type: string | nil
+                      displayName: insurance
+                      description: ""
+                      example: "-1.00"
+            custom:
+              required: false
+              type: string | nil
+              displayName: custom
+              description: ""
+              example: "EBAY_EMS_90048630024435"
+            invoice_number:
+              required: false
+              type: string | nil
+              displayName: invoice_number
+              description: ""
+              example: "48787589673"
+            payment_options:
+              type: object
+              required: false
+              properties:
+                allowed_payment_method:
+                  required: false
+                  type: string | nil
+                  displayName: allowed_payment_method
+                  description: ""
+                  example: "INSTANT_FUNDING_SOURCE"
+            soft_descriptor:
+              required: false
+              type: string | nil
+              displayName: soft_descriptor
+              description: ""
+              example: "ECHI5786786"
+            item_list:
+              type: object
+              required: false
+              properties:
+                items:
+                  type: array
+                  required: false
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        required: false
+                        type: string | nil
+                        displayName: name
+                        description: ""
+                        example: "hat"
+                      description:
+                        required: false
+                        type: string | nil
+                        displayName: description
+                        description: ""
+                        example: "Brown hat."
+                      quantity:
+                        required: false
+                        type: string | nil
+                        displayName: quantity
+                        description: ""
+                        example: "5"
+                      price:
+                        required: false
+                        type: string | nil
+                        displayName: price
+                        description: ""
+                        example: "3"
+                      tax:
+                        required: false
+                        type: string | nil
+                        displayName: tax
+                        description: ""
+                        example: "0.01"
+                      sku:
+                        required: false
+                        type: string | nil
+                        displayName: sku
+                        description: ""
+                        example: "1"
+                      currency:
+                        required: false
+                        type: string | nil
+                        displayName: currency
+                        description: ""
+                        example: "USD"
+            shipping_address:
+              type: object
+              required: false
+              properties:
+                recipient_name:
+                  required: false
+                  type: string | nil
+                  displayName: recipient_name
+                  description: ""
+                  example: "Brian Robinson"
+                line1:
+                  required: false
+                  type: string | nil
+                  displayName: line1
+                  description: ""
+                  example: "4th Floor"
+                line2:
+                  required: false
+                  type: string | nil
+                  displayName: line2
+                  description: ""
+                  example: "Unit #34"
+                city:
+                  required: false
+                  type: string | nil
+                  displayName: city
+                  description: ""
+                  example: "San Jose"
+                country_code:
+                  required: false
+                  type: string | nil
+                  displayName: country_code
+                  description: ""
+                  example: "US"
+                postal_code:
+                  required: false
+                  type: string | nil
+                  displayName: postal_code
+                  description: ""
+                  example: "95131"
+                phone:
+                  required: false
+                  type: string | nil
+                  displayName: phone
+                  description: ""
+                  example: "011862212345678"
+                state:
+                  required: false
+                  type: string | nil
+                  displayName: state
+                  description: ""
+                  example: "CA"
+      note_to_payer:
+        required: false
+        type: string | nil
+        displayName: note_to_payer
+        description: ""
+        example: "Contact us for any questions on your order."
+      redirect_urls:
+        type: object
+        required: false
+        properties:
+          return_url:
+            required: false
+            type: string | nil
+            displayName: return_url
+            description: ""
+            example: "https://example.com/return"
+          cancel_url:
+            required: false
+            type: string | nil
+            displayName: cancel_url
+            description: ""
+            example: "https://example.com/cancel"
+
+
+                
+                
+                
+
+                
+
+                      
+
+                      
+                      
+                      
+
+
+
+
+
+            
+            
+            
+            
+
+          
+
+
+                    
+
+                    
+
+
+
