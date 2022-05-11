@@ -1,0 +1,32 @@
+#%RAML 1.0
+title: www-klarna-sapi
+version: v2
+protocols: [ HTTP, HTTPS ]
+mediaType: application/json
+baseUri: http://www-mule-poc1.us-e2.cloudhub.io/api/
+
+traits:
+  client-id-required:
+    headers:
+      client_id:
+        type: string
+      client_secret:
+        type: string
+
+
+/v2:
+  /klarna:
+    /payments:
+      description: payment gateway
+      post:
+        is: [client-id-required]
+        body:
+          application/json:
+            type: !include data-types/klarna/klarna-payments-request.raml
+            example: !include examples/klarna/klarna-payments-request.json
+        responses:
+          201:
+            body:
+              application/json:
+                type: !include data-types/klarna/klarna-payments-response.raml
+                example: !include examples/klarna/klarna-payments-response.json

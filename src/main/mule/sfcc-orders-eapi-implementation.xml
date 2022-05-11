@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:json-logger="http://www.mulesoft.org/schema/mule/json-logger" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/json-logger http://www.mulesoft.org/schema/mule/json-logger/current/mule-json-logger.xsd">
+	<flow name="sfcc-orders-eapi-implementation-flow" doc:id="36eeb9c5-8519-42ca-9ec1-8aec6da3a136" >
+		<json-logger:logger doc:name="Start" doc:id="4819dc71-cfe9-4343-adab-e80f2fb190e1" config-ref="JSON_Logger_Config" message="Start of flow : sfcc-orders-eapi-implementation-flow"/>
+		<ee:transform doc:name="Request Body" doc:id="2a9764a8-107b-4ea5-ac43-b88b08c39584" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<http:request method="POST" doc:name="Call to order process api" doc:id="d1b2d135-9169-44b5-a07b-d17563ecc157" path="/{orderid}/payments" config-ref="http_request_configuration">
+			<http:headers ><![CDATA[#[{
+	"client_id" : p('papi.client_id'),
+	"client_secret" : p('papi.client_secret'),
+	"x-payment-type" : attributes.headers.'x-payment-type',
+	"x-request-id" : if(attributes.headers.'x-request-id'?)attributes.headers.'x-request-id' else correlationId
+}]]]></http:headers>
+			<http:uri-params ><![CDATA[#[{
+	"orderid" : attributes.uriParams.orderid
+}]]]></http:uri-params>
+		</http:request>
+		<ee:transform doc:name="Response" doc:id="5b6e9e98-c25c-48b8-8cda-15e2263e4f32" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<json-logger:logger doc:name="End" doc:id="43c03296-5d2c-4485-8ea6-7eb06676bbe0" config-ref="JSON_Logger_Config" message="End of flow : sfcc-orders-eapi-implementation-flow"/>
+	</flow>
+</mule>

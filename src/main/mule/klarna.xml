@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<flow name="klarna" doc:id="de64ecf0-7943-46c8-a07c-a02034609661" >
+		<ee:transform doc:name="Request Mapping" doc:id="c2ab8659-45ee-46e4-b0b7-fd4323ff634a" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+			<ee:variables >
+			</ee:variables>
+		</ee:transform>
+		<set-variable value="#[%dw 2.0&#10;output application/json&#10;---&#10;if ( payload.locale == &quot;en-US&quot; or payload.locale == &quot;en-us&quot; ) (p('system.klarna.locale.us-host')) else (p('system.klarna.locale.other-host'))]" doc:name="host - based on locale the host will vary" doc:id="2118bc08-22d9-4c4d-9cc1-52614d044ccb" variableName="host" mimeType="application/json"/>
+		<http:request method="POST" doc:name="Klarna Request" doc:id="d62c7322-755e-4647-8ac1-a04a7257c3b5" path="${system.klarna.path}" config-ref="Klarna_HTTP_Request_configuration"/>
+		<ee:transform doc:name="Response Mapping" doc:id="d39bfa9b-4b9f-414d-8c39-4f0628bda844" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>

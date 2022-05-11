@@ -1,5 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+
+
+<mule xmlns:api-gateway="http://www.mulesoft.org/schema/mule/api-gateway"
+	xmlns:os="http://www.mulesoft.org/schema/mule/os"
+	xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+
+
+<mule xmlns:api-gateway="http://www.mulesoft.org/schema/mule/api-gateway"
+	xmlns:tls="http://www.mulesoft.org/schema/mule/tls"
+	xmlns:os="http://www.mulesoft.org/schema/mule/os" xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties"
+	xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+
+http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd 
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd
+http://www.mulesoft.org/schema/mule/os http://www.mulesoft.org/schema/mule/os/current/mule-os.xsd
+
+http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/mule/api-gateway/current/mule-api-gateway.xsd">
+	<http:listener-config name="www-paypal-sapi-httpListenerConfig">
+        <http:listener-connection host="0.0.0.0" port="8081" />
+    </http:listener-config>
+    <apikit:config name="www-paypal-sapi-config" api="www-paypal-sapi.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" >
+		<apikit:flow-mappings >
+			<apikit:flow-mapping resource="/v2/paypal/payments" action="post" content-type="application/json" flow-ref="paypal-order-capture-flow" />
+		</apikit:flow-mappings>
+	</apikit:config>
+    
+	<configuration-properties doc:name="Configuration properties" doc:id="d2cf2f5b-f664-47e0-a9df-5fe2061ed35f" file="${env}/${env}-properties.yaml" />
+	<secure-properties:config name="Secure_Properties_Config" doc:name="Secure Properties Config" doc:id="8fdcf44c-9401-48a4-9f84-c442cb1f44ef" file="${env}/${env}-secure.properties" key="${secureKey}" />
+	<http:request-config name="HTTP_Request_configuration_oauth" doc:name="HTTP Request configuration" doc:id="448dd84f-4e4a-449d-90f6-b1cd78b702ca" >
+		<http:request-connection protocol="HTTPS" host="${system.paypal.host}" >
+			<http:authentication >
+				<http:basic-authentication username="${secure::paypal.client_id}" password="${secure::paypal.client_secret}" />
+			</http:authentication>
+		</http:request-connection>
+	</http:request-config>
+	<os:config name="ObjectStore_Config" doc:name="ObjectStore Config" doc:id="674d02a4-8742-4c37-b693-f9a550c24143" />
+	<os:object-store name="Object_store" doc:name="Object store" doc:id="fd7204ad-2ac2-41ad-83b3-786d95cea7e0" maxEntries="1" entryTtl="30" entryTtlUnit="MINUTES" config-ref="ObjectStore_Config" />
+	<http:request-config name="HTTP_Request_configuration_paypal" doc:name="HTTP Request configuration" doc:id="716d6eb6-d0dc-42eb-8ddc-52723587c5ce" >
+		<http:request-connection protocol="HTTPS" host="${system.paypal.host}" />
+	</http:request-config>
+	<api-gateway:autodiscovery apiId="${api.id}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="f03b0cbb-b7cc-4a2c-9c61-bb6ad14d72aa" flowRef="www-paypal-sapi-main" />
+    
+	
+
+http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd
+http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/mule/api-gateway/current/mule-api-gateway.xsd">
+	<configuration-properties doc:name="Configuration properties" doc:id="d2cf2f5b-f664-47e0-a9df-5fe2061ed35f" file="${env}/${env}-properties.yaml" />
+	<http:request-config name="Klarna_HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="62d87257-9dc1-4ae1-99af-45112608b53d" >
+		<http:request-connection protocol="HTTPS" host="#[vars.host]" >
+			<http:authentication >
+				<http:basic-authentication username="${system.klarna.username}" password="${secure::klarna.password}" />
+			</http:authentication>
+		</http:request-connection>
+	</http:request-config>
+	 <http:listener-config name="www-klarna-sapi-httpListenerConfig">
+        <http:listener-connection host="0.0.0.0" port="${https.port}" protocol="HTTPS">
+			<tls:context >
+				<tls:trust-store insecure="true" />
+				<tls:key-store type="${tls.type}" path="${tls.path}" alias="${tls.alias}" keyPassword="${tls.keyPassword}" password="${tls.password}" />
+			</tls:context>
+		</http:listener-connection>
+    </http:listener-config>
+    <apikit:config name="www-klarna-sapi-config" api="www-klarna-sapi.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+	<secure-properties:config name="Secure_Properties_Config" doc:name="Secure Properties Config" doc:id="c5c5ee4c-837b-4d79-969c-8c7626a1bdb2" file="${env}/${env}-secure.properties" key="${secureKey}" />
+	<api-gateway:autodiscovery apiId="${api.id}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="bf3e5d3b-8c66-45c3-b373-d2f6cfa243fa" flowRef="www-klarna-sapi-main" />
+    	
+
+
 <mule xmlns:json-logger="http://www.mulesoft.org/schema/mule/json-logger" xmlns:api-gateway="http://www.mulesoft.org/schema/mule/api-gateway"
 	xmlns:tls="http://www.mulesoft.org/schema/mule/tls"
 	xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
@@ -9,6 +81,7 @@ http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/sc
 http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd
 http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/mule/api-gateway/current/mule-api-gateway.xsd
 http://www.mulesoft.org/schema/mule/json-logger http://www.mulesoft.org/schema/mule/json-logger/current/mule-json-logger.xsd">
+
 	<configuration-properties doc:name="Configuration properties" doc:id="3e65e031-4244-4040-903d-1f6eeb55e6c0" file="${env}/${env}-properties.yaml" doc:description="property file config"/>
 	<http:listener-config name="http_listener_config" doc:name="HTTP Listener config" doc:id="e804cb42-a104-4473-a410-b2c18caa954c" doc:description="listener config with https" >
 		<http:listener-connection host="${http.host}" port="${http.port}">
@@ -31,4 +104,21 @@ http://www.mulesoft.org/schema/mule/json-logger http://www.mulesoft.org/schema/m
 	<api-gateway:autodiscovery apiId="${api.id}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="63f3be57-0e63-4276-b1bb-a72332914666" flowRef="www-orders-papi-main" />
 	<configuration-properties doc:name="Configuration properties" doc:id="d99ca32e-0e40-4031-9955-3e7f7a1f08e5" doc:description="log-config.properties" file="log-config.properties" />
 	<json-logger:config name="JSON_Logger_Config" doc:name="JSON Logger Config" doc:id="7f505eed-1de4-4dc8-b5c5-b5757ffaf237" doc:description="JSON_Logger_Config" environment="${env}" />
+
+	<http:listener-config name="http_listener_config" doc:name="HTTP Listener config" doc:id="3dbb34dd-328a-4d5d-b415-4304126126cf" doc:description="http_listener_config" >
+		<http:listener-connection host="${http.host}" port="${http.port}" />
+	</http:listener-config>
+	<configuration-properties doc:name="Configuration properties" doc:id="5a619f31-eaa9-4299-8748-fd333b97e7bb" file="${env}/${env}-properties.yaml" doc:description="config-properties"/>
+	<apikit:config outboundHeadersMapName="outboundHeadersMapName" httpStatusVarName="httpStatus" doc:name="Router" doc:id="eef611cc-1523-4e98-804a-5adbb45e0a16" doc:description="router-config" name="www-sfcc-orders-eapi-config" api="api\www-sfcc-orders-eapi.raml" parser="RAML" raml="api\www-sfcc-orders-eapi.raml" />
+	<secure-properties:config name="Secure_Properties_Config" doc:name="Secure Properties Config" doc:id="cf645a27-f0ab-4b59-a07b-c79c9ac75937" doc:description="secure key and file config" file="${env}/${env}-secure.properties" key="${secure.key}" />
+	<http:request-config name="http_request_configuration" doc:name="HTTP Request configuration" doc:id="68b0894f-17ea-470f-95d9-47f0099d2807" basePath="${papi.basePath}" doc:description="process-api-request-config">
+		<http:request-connection host="${papi.host}">
+		</http:request-connection>
+	</http:request-config>
+	<api-gateway:autodiscovery apiId="${api.id}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="89e71712-1c51-41f8-ae61-4e08737ab5d1" flowRef="www-sfcc-orders-eapi-main" />
+	<json-logger:config name="JSON_Logger_Config" doc:name="JSON Logger Config" doc:id="f91ed64a-aac6-4c95-bbfb-31973c42c05f" doc:description="JSON_Logger_Config" environment="${env}" />
+	<configuration-properties doc:name="Configuration properties" doc:id="518c06c4-45d8-461b-8a4b-e6b73805ec6e" file="log-config.properties" doc:description="log-config.properties"/>
+
+
+
 </mule>

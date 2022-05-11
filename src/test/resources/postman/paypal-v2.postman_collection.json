@@ -1,0 +1,173 @@
+{
+	"info": {
+		"_postman_id": "28d291f3-9f09-4492-a300-09b0a7ee118a",
+		"name": "paypal-v2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8081/api/v2/paypal/payments",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "client_id",
+						"value": "1",
+						"type": "default"
+					},
+					{
+						"key": "client_secret",
+						"value": "1",
+						"type": "default"
+					},
+					{
+						"key": "PayPal-Request-Id",
+						"value": "7b92603e-77ed-4896-8e78-5dea2050476a",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"intent\": \"CAPTURE\",\r\n  \"purchase_units\": [\r\n    {\r\n      \"amount\": {\r\n        \"currency_code\": \"USD\",\r\n        \"value\": \"100.00\"\r\n      }\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/v2/paypal/payments",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"v2",
+						"paypal",
+						"payments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "paypal Create payment order",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer A21AALtTrnrmYsFmsI_98Llc0LQ-Q8UKrWI2P6PSANEjvqgzSktvGkjHi55WQWvEBY40bCUuqHgAYbisX9GKZqbBGudISRmwg"
+					},
+					{
+						"key": "PayPal-Request-Id",
+						"value": "7b92603e-77ed-4896-8e78-5dea2050476a",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"intent\": \"CAPTURE\",\n  \"purchase_units\": [\n    {\n      \"amount\": {\n        \"currency_code\": \"USD\",\n        \"value\": \"100.00\"\n      }\n    }\n  ]\n}"
+				},
+				"url": {
+					"raw": "https://api-m.sandbox.paypal.com/v2/checkout/orders",
+					"protocol": "https",
+					"host": [
+						"api-m",
+						"sandbox",
+						"paypal",
+						"com"
+					],
+					"path": [
+						"v2",
+						"checkout",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://api-m.sandbox.paypal.com/v1/oauth2/token",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "EOx4gvdB2a2VFs0wWBEfCZWaAgtVcyb58f8A68LvXaQCuvfFbJt5undoC84zNuGMCatmb06sm8Fc9OR4",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "ATm8Loa4HEnf5R-MSTyCFNblfrmcefUabA9spbWtns8pfkSogq96y-MQmwKyXLVn7xNKZoOhB8Bl1Q78",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en_US",
+						"type": "default"
+					},
+					{
+						"key": "CLIENT_ID",
+						"value": "ATm8Loa4HEnf5R-MSTyCFNblfrmcefUabA9spbWtns8pfkSogq96y-MQmwKyXLVn7xNKZoOhB8Bl1Q78",
+						"type": "default",
+						"disabled": true
+					},
+					{
+						"key": "SECRET",
+						"value": "EOx4gvdB2a2VFs0wWBEfCZWaAgtVcyb58f8A68LvXaQCuvfFbJt5undoC84zNuGMCatmb06sm8Fc9OR4",
+						"type": "default",
+						"disabled": true
+					},
+					{
+						"key": "grant_type",
+						"value": "client_credentials",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://api-m.sandbox.paypal.com/v1/oauth2/token",
+					"protocol": "https",
+					"host": [
+						"api-m",
+						"sandbox",
+						"paypal",
+						"com"
+					],
+					"path": [
+						"v1",
+						"oauth2",
+						"token"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

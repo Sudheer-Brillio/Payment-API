@@ -1,0 +1,41 @@
+#%RAML 1.0
+title: www-sfcc-orders-eapi
+version: v2
+mediaType: application/json
+protocols: [HTTP, HTTPS]
+baseUri: http://www-mule-poc1.us-e2.cloudhub.io/api/
+
+traits:
+  client-id-required:
+    headers:
+      client_id:
+        type: string
+      client_secret:
+        type: string
+
+/v2:
+  /order/{orderid}:
+    /payments:
+      post:
+        is: [client-id-required]
+        headers:
+          x-payment-type:
+            type: string
+            required: true
+            enum: ["paypal" , "klarna"]
+          x-request-id?:
+            type: string  
+        body:
+          application/json:
+            examples:
+              klarna: !include examples/klarna/klarna-payments-request.json
+              paypal: !include examples/paypal/paypal-payments-request.json
+        responses:
+          201:
+            body:
+              application/json:
+                examples:
+                  klarna: !include examples/klarna/klarna-payments-response.json
+                  paypal: !include examples/paypal/paypal-payments-response.json
+      
+
