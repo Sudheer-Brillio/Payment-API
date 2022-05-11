@@ -12,20 +12,6 @@ https:
     port: "8092" 
 
 
-system:    
-  paypal:
-    host: "api-m.sandbox.paypal.com"
-    timeout: "30000"
-    connectTimeout: "30000"
-    grant_type: "client_credentials" 
-    path:
-      oauth: "/v1/oauth2/token"
-      payments: "/v2/checkout/orders"
-      
-api:
- id: "17729971"
-
-
 system:
   klarna:
     host: "api.playground.klarna.com"
@@ -56,7 +42,6 @@ tls:
   
 api:
  id: "17716537"
-
 
     
   
