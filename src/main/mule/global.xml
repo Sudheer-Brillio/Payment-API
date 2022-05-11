@@ -1,5 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+
+<mule xmlns:api-gateway="http://www.mulesoft.org/schema/mule/api-gateway"
+	xmlns:tls="http://www.mulesoft.org/schema/mule/tls"
+	xmlns:os="http://www.mulesoft.org/schema/mule/os" xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties"
+	xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd 
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd
+http://www.mulesoft.org/schema/mule/os http://www.mulesoft.org/schema/mule/os/current/mule-os.xsd
+http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd
+http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/mule/api-gateway/current/mule-api-gateway.xsd">
+	<configuration-properties doc:name="Configuration properties" doc:id="d2cf2f5b-f664-47e0-a9df-5fe2061ed35f" file="${env}/${env}-properties.yaml" />
+	<http:request-config name="Klarna_HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="62d87257-9dc1-4ae1-99af-45112608b53d" >
+		<http:request-connection protocol="HTTPS" host="#[vars.host]" >
+			<http:authentication >
+				<http:basic-authentication username="${system.klarna.username}" password="${secure::klarna.password}" />
+			</http:authentication>
+		</http:request-connection>
+	</http:request-config>
+	 <http:listener-config name="www-klarna-sapi-httpListenerConfig">
+        <http:listener-connection host="0.0.0.0" port="${https.port}" protocol="HTTPS">
+			<tls:context >
+				<tls:trust-store insecure="true" />
+				<tls:key-store type="${tls.type}" path="${tls.path}" alias="${tls.alias}" keyPassword="${tls.keyPassword}" password="${tls.password}" />
+			</tls:context>
+		</http:listener-connection>
+    </http:listener-config>
+    <apikit:config name="www-klarna-sapi-config" api="www-klarna-sapi.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+	<secure-properties:config name="Secure_Properties_Config" doc:name="Secure Properties Config" doc:id="c5c5ee4c-837b-4d79-969c-8c7626a1bdb2" file="${env}/${env}-secure.properties" key="${secureKey}" />
+	<api-gateway:autodiscovery apiId="${api.id}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="bf3e5d3b-8c66-45c3-b373-d2f6cfa243fa" flowRef="www-klarna-sapi-main" />
+    	
+
 <mule xmlns:json-logger="http://www.mulesoft.org/schema/mule/json-logger" xmlns:api-gateway="http://www.mulesoft.org/schema/mule/api-gateway"
 	xmlns:tls="http://www.mulesoft.org/schema/mule/tls"
 	xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
@@ -22,4 +55,5 @@ http://www.mulesoft.org/schema/mule/json-logger http://www.mulesoft.org/schema/m
 	<api-gateway:autodiscovery apiId="${api.id}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="89e71712-1c51-41f8-ae61-4e08737ab5d1" flowRef="www-sfcc-orders-eapi-main" />
 	<json-logger:config name="JSON_Logger_Config" doc:name="JSON Logger Config" doc:id="f91ed64a-aac6-4c95-bbfb-31973c42c05f" doc:description="JSON_Logger_Config" environment="${env}" />
 	<configuration-properties doc:name="Configuration properties" doc:id="518c06c4-45d8-461b-8a4b-e6b73805ec6e" file="log-config.properties" doc:description="log-config.properties"/>
+
 </mule>

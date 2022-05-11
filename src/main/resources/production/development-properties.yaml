@@ -11,6 +11,20 @@ https:
     host: "0.0.0.0"
     port: "8092" 
 
+
+system:
+  klarna:
+    host: "api.playground.klarna.com"
+    path: "/payments/v1/sessions"
+    username: "PK18187_3eb68c1e37dc"
+    password: "UTJFqYrBEnWZjNjE"
+    timeout: "30000"
+    connectTimeout: "30000"
+    locale: # based on locale host will change
+      us-host: "api-na.playground.klarna.com" # only for US
+      other-host: "api.playground.klarna.com" # all other
+
+
 #papi request config
 papi:
  host : "www-orders-papi.us-e2.cloudhub.io"
@@ -18,6 +32,7 @@ papi:
  client_id : "b263e12ed9554ad2be30915e91ea7cb4"
  client_secret : "903B21E5e96647539e9C3647E3d44f1C"
  
+
 #Enable https     
 tls:
   type: "JKS"
@@ -27,6 +42,6 @@ tls:
   password: "Mule@1234"
   
 api:
- id: "17730507"
+ id: "17716537"
     
   
