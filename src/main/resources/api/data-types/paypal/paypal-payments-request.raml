@@ -1,0 +1,303 @@
+#%RAML 1.0 DataType
+
+type: object
+properties:
+  intent:
+    required: false
+    type: string | nil
+    displayName: intent
+    description: ""
+    example: "CAPTURE"
+  purchase_units:
+    type: array
+    required: false
+    items:
+      type: object
+      properties:
+        reference_id:
+          required: false
+          type: string | nil
+          displayName: reference_id
+          description: ""
+          example: "REFID-000-1001"
+        amount: 
+          type: object
+          required: false
+          properties:
+            currency_code:
+                required: false
+                type: string | nil
+                displayName: currency_code
+                description: ""
+                example: "CAD"
+            value:
+              required: false
+              type: string | nil
+              displayName: value
+              description: ""
+              example: "10.00"
+        payee:
+          type: object
+          required: false
+          properties:
+            email_address:
+              required: false
+              type: string | nil
+              displayName: email_address
+              description: ""
+              example: "seller@paypal.com"
+        payment_instruction:
+          type: object
+          required: false
+          properties:
+            platform_fees:
+              type: array
+              required: false
+              items:
+                type: object
+                properties:
+                  amount:
+                    type: object
+                    properties:
+                      currency_code:
+                        required: false
+                        type: string | nil
+                        displayName: currency_code
+                        description: ""
+                        example: "CAD"
+                      value:
+                        required: false
+                        type: string | nil
+                        displayName: value
+                        description: ""
+                        example: "1.00"
+                  payee:
+                    type: object
+                    required: false
+                    properties:
+                      email_address:
+                        required: false
+                        type: string | nil
+                        displayName: email_address
+                        description: ""
+                        example: "_sys_aquarium-1696754097380342@paypal.com" 
+            disbursement_mode:
+              required: false
+              type: string | nil
+              displayName: disbursement_mode
+              description: ""
+              example: "INSTANT"
+            payee_pricing_tier_id:
+              required: false
+              type: string | nil
+              displayName: payee_pricing_tier_id
+              description: ""
+              example: "999ZAE"
+  payment_source:
+    type: object
+    required: false
+    properties:
+      apple_pay:
+        type: object
+        properties:
+          id:
+            required: false
+            type: string | nil
+            displayName: id
+            description: ""
+            example: "DSF32432423FSDFS"    
+          name:
+            required: false
+            type: string | nil
+            displayName: name
+            description: ""
+            example: "Randy Oscar"      
+          email_address:
+            required: false
+            type: string | nil
+            displayName: email_address
+            description: ""
+            example: "randy.oscar@gmail.com"
+          phone_number:
+            type: object
+            required: false
+            properties:
+              country_code:
+                required: false
+                type: string | nil
+                displayName: country_code
+                description: ""
+                example: "1"
+              national_number:
+                required: false
+                type: string | nil
+                displayName: national_number
+                description: ""
+                example: "18882211161"
+          shipping:
+            type: object
+            required: false
+            properties:
+              name:
+                type: object
+                properties:
+                  given_name:
+                    required: false
+                    type: string | nil
+                    displayName: given_name
+                    description: ""
+                    example: "Randy"
+                  surname:
+                    required: false
+                    type: string | nil
+                    displayName: surname
+                    description: ""
+                    example: "Oscar"
+              email_address:
+                required: false
+                type: string | nil
+                displayName: email_address
+                description: ""
+                example: "randy.oscar@gmail.com" 
+              address:
+                type: object
+                required: false
+                properties:
+                  address_line_1:
+                    required: false
+                    type: string | nil
+                    displayName: address_line_1
+                    description: ""
+                    example: "123 Townsend S"     
+                  address_line_2:
+                    required: false
+                    type: string | nil
+                    displayName: address_line_2
+                    description: ""
+                    example: "Floor 6"
+                  admin_area_2:
+                    required: false
+                    type: string | nil
+                    displayName: admin_area_2
+                    description: ""
+                    example: "San Francisc"
+                  admin_area_1:
+                    required: false
+                    type: string | nil
+                    displayName: admin_area_1
+                    description: ""
+                    example: "CA"
+                  postal_code:
+                    required: false
+                    type: string | nil
+                    displayName: postal_code
+                    description: ""
+                    example: "94107"
+                  country_code:
+                    required: false
+                    type: string | nil
+                    displayName: country_code
+                    description: ""
+                    example: "CAPTURE"
+              decrypted_token:
+                type: object
+                required: false
+                properties:
+                  transaction_amount:
+                    type: object
+                    properties:
+                      currency_code:
+                        required: false
+                        type: string | nil
+                        displayName: currency_code
+                        description: ""
+                        example: "USD"
+                      value:
+                        required: false
+                        type: string | nil
+                        displayName: value
+                        description: ""
+                        example: "10.00"
+                  tokenized_card:
+                    type: object
+                    required: false
+                    properties:
+                      number:
+                        required: false
+                        type: string | nil
+                        displayName: number
+                        description: ""
+                        example: "4111111111114672"     
+                      expiry:
+                        required: false
+                        type: string | nil
+                        displayName: expiry
+                        description: ""
+                        example: "2022-02"
+                      billing_address:
+                        type: object
+                        properties:
+                          address_line_1:
+                            required: false
+                            type: string | nil
+                            displayName: address_line_1
+                            description: ""
+                            example: "123 Townsend S"
+                          address_line_2:
+                            required: false
+                            type: string | nil
+                            displayName: address_line_2
+                            description: ""
+                            example: "Floor 6"
+                          admin_area_2:
+                            required: false
+                            type: string | nil
+                            displayName: admin_area_2
+                            description: ""
+                            example: "San Francisc"       
+                          admin_area_1:
+                            required: false
+                            type: string | nil
+                            displayName: admin_area_1
+                            description: ""
+                            example: "CA"
+                          postal_code:
+                            required: false
+                            type: string | nil
+                            displayName: postal_code
+                            description: ""
+                            example: "94107"
+                          country_code:
+                            required: false
+                            type: string | nil
+                            displayName: country_code
+                            description: ""
+                            example: "US"
+                  device_manufacturer_id:
+                      required: false
+                      type: string | nil
+                      displayName: device_manufacturer_id
+                      description: ""
+                      example: "040010030273"
+                  payment_data_type:
+                      required: false
+                      type: string | nil
+                      displayName: payment_data_type
+                      description: ""
+                      example: "3DSECURE"    
+                  payment_data:
+                    type: object
+                    required: false
+                    properties:
+                      cryptogram:
+                          required: false
+                          type: string | nil
+                          displayName: cryptogram
+                          description: ""
+                          example: "SaDA0Gw9cR37j8xrZP6VFCJpa"   
+                      eci_indicator:
+                          required: false
+                          type: string | nil
+                          displayName: eci_indicator
+                          description: ""
+                          example: "7"    

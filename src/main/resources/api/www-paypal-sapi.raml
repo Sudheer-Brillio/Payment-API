@@ -1,0 +1,35 @@
+#%RAML 1.0
+title: www-paypal-sapi
+version: v2
+protocols: [ HTTP, HTTPS ]
+mediaType: application/json
+baseUri: http://www-mule-poc1.us-e2.cloudhub.io/api/
+
+traits:
+  client-id-required:
+    headers:
+      client_id:
+        type: string
+      client_secret:
+        type: string
+
+/v2:
+  /paypal:
+    /payments:
+      post:
+        is: [client-id-required]
+        headers:
+          PayPal-Request-Id:
+            type: string
+            required: true
+            displayName: PayPal-Request-Id
+            example: "7b92603e-77ed-4896-8e78-5dea2050476a"
+        body:
+          application/json:
+            type: !include data-types/paypal/paypal-payments-request.raml
+            example: !include examples/paypal/paypal-payments-request.json
+        responses:
+          201:
+            body:
+              application/json:
+                example: !include examples/paypal/paypal-payments-response.json
