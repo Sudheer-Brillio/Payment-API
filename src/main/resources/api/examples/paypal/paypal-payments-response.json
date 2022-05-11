@@ -1,0 +1,130 @@
+{
+  "id": "6WU455923F879071T",
+  "intent": "CAPTURE",
+  "status": "COMPLETED",
+  "payment_source": {
+    "apple_pay": {
+      "card": {
+        "name": "Randy Oscar",
+        "last_digits": "4672",
+        "brand": "VISA",
+        "type": "CREDIT",
+        "billing_address": {
+          "address_line_1": "2211 N First Street",
+          "address_line_2": "Building 17",
+          "admin_area_2": "San Jose",
+          "admin_area_1": "CA",
+          "postal_code": "95131",
+          "country_code": "US"
+        }
+      }
+    }
+  },
+  "purchase_units": [
+    {
+      "reference_id": "REFID-000-1001",
+      "amount": {
+        "currency_code": "CAD",
+        "value": "10.00"
+      },
+      "payee": {
+        "merchant_id": "CWL4VKR4T8VE2"
+      },
+      "payment_instruction": {
+        "platform_fees": [
+          {
+            "amount": {
+              "currency_code": "CAD",
+              "value": "1.00"
+            },
+            "payee": {
+              "merchant_id": "FCDNN9FSYBZK4"
+            }
+          }
+        ],
+        "disbursement_mode": "INSTANT",
+        "payee_pricing_tier_id": "999ZAE"
+      },
+      "soft_descriptor": "PP *SOFT-1001",
+      "payments": {
+        "captures": [
+          {
+            "id": "45E71580WN564964G",
+            "status": "COMPLETED",
+            "amount": {
+              "currency_code": "CAD",
+              "value": "10.00"
+            },
+            "final_capture": true,
+            "disbursement_mode": "INSTANT",
+            "seller_protection": {
+              "status": "INELIGIBLE"
+            },
+            "seller_receivable_breakdown": {
+              "gross_amount": {
+                "currency_code": "CAD",
+                "value": "10.00"
+              },
+              "paypal_fee": {
+                "currency_code": "CAD",
+                "value": "0.59"
+              },
+              "platform_fees": [
+                {
+                  "amount": {
+                    "currency_code": "CAD",
+                    "value": "1.00"
+                  },
+                  "payee": {
+                    "merchant_id": "FCDNN9FSYBZK4"
+                  }
+                }
+              ],
+              "net_amount": {
+                "currency_code": "CAD",
+                "value": "8.41"
+              },
+              "receivable_amount": {
+                "currency_code": "USD",
+                "value": "8.20"
+              },
+              "exchange_rate": {
+                "source_currency": "CAD",
+                "target_currency": "USD",
+                "value": "0.974805272898685"
+              }
+            },
+            "links": [
+              {
+                "href": "https://api-m.paypal.com/v2/payments/captures/45E71580WN564964G",
+                "rel": "self",
+                "method": "GET"
+              },
+              {
+                "href": "https://api-m.paypal.com/v2/payments/captures/45E71580WN564964G/refund",
+                "rel": "refund",
+                "method": "POST"
+              },
+              {
+                "href": "https://api-m.paypal.com/v2/checkout/orders/6WU455923F879071T",
+                "rel": "up",
+                "method": "GET"
+              }
+            ],
+            "create_time": "2020-07-13T22:52:43Z",
+            "update_time": "2020-07-13T22:52:43Z"
+          }
+        ]
+      }
+    }
+  ],
+  "create_time": "2020-07-13T22:52:43Z",
+  "update_time": "2020-07-13T22:52:43Z",
+  "links": [
+    {
+      "href": "https://api-m.paypal.com/v2/checkout/orders/6WU455923F879071T",
+      "rel": "self",
+      "method": "GET"
+    }
+  ]
+}

@@ -1,0 +1,266 @@
+#%RAML 1.0 DataType
+
+type: object
+properties:
+  id:
+    required: false
+    type: string | nil
+    displayName: id
+    description: ""
+    example: "PAY-1B56960729604235TKQQIYVY"
+  create_time:
+    required: false
+    type: string | nil
+    displayName: create_time
+    description: ""
+    example: "2017-09-22T20:53:43Z"
+  update_time:
+    required: false
+    type: string | nil
+    displayName: update_time
+    description: ""
+    example: "2017-09-22T20:53:44Z"
+  state:
+    required: false
+    type: string | nil
+    displayName: state
+    description: ""
+    example: "CREATED"
+  intent:
+    required: false
+    type: string | nil
+    displayName: intent
+    description: ""
+    example: "sale"
+  payer:
+    type: object
+    required: false
+    properties:
+      payment_method:
+        required: false
+        type: string | nil
+        displayName: payment_method
+        description: ""
+        example: "paypal"
+      transactions:
+        type: array
+        required: false
+        items:
+          type: object
+          properties:
+            amount:
+              type: object
+              required: false
+              properties:
+                total:
+                  required: false
+                  type: string | nil
+                  displayName: total
+                  description: ""
+                  example: "30.11"
+                currency:
+                  required: false
+                  type: string | nil
+                  displayName: currency
+                  description: ""
+                  example: "USD"
+                details:
+                  type: object
+                  required: false
+                  properties:
+                    subtotal:
+                      required: false
+                      type: string | nil
+                      displayName: subtotal
+                      description: ""
+                      example: "30.00"
+                    tax:
+                      required: false
+                      type: string | nil
+                      displayName: tax
+                      description: ""
+                      example: "0.07"
+                    shipping:
+                      required: false
+                      type: string | nil
+                      displayName: shipping
+                      description: ""
+                      example: "shipping"
+                    handling_fee:
+                      required: false
+                      type: string | nil
+                      displayName: handling_fee
+                      description: ""
+                      example: "1.00"
+                    insurance:
+                      required: false
+                      type: string | nil
+                      displayName: insurance
+                      description: ""
+                      example: "0.01"
+                    shipping_discount:
+                      required: false
+                      type: string | nil
+                      displayName: shipping_discount
+                      description: ""
+                      example: "-1.00"
+            description:
+              required: false
+              type: string | nil
+              displayName: description
+              description: ""
+              example: "The payment transaction description."
+            custom:
+              required: false
+              type: string | nil
+              displayName: custom
+              description: ""
+              example: "EBAY_EMS_90048630024435"
+            invoice_number:
+              required: false
+              type: string | nil
+              displayName: invoice_number
+              description: ""
+              example: "48787589673"
+            item_list:
+              type: object
+              required: false
+              properties:
+                items:
+                  type: array
+                  required: false
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        required: false
+                        type: string | nil
+                        displayName: name
+                        description: ""
+                        example: "hat"
+                      sku:
+                        required: false
+                        type: string | nil
+                        displayName: sku
+                        description: ""
+                        example: "1"
+                      price:
+                        required: false
+                        type: string | nil
+                        displayName: price
+                        description: ""
+                        example: "3.00"
+                      currency:
+                        required: false
+                        type: string | nil
+                        displayName: currency
+                        description: ""
+                        example: "USD"
+                      quantity:
+                        required: false
+                        type: string | nil
+                        displayName: quantity
+                        description: ""
+                        example: "5"
+                      description:
+                        required: false
+                        type: string | nil
+                        displayName: description
+                        description: ""
+                        example: "Brown hat."
+                      tax:
+                        required: false
+                        type: string | nil
+                        displayName: tax
+                        description: ""
+                        example: "0.01"
+            shipping_address:
+              type: object
+              required: false
+              properties:
+                recipient_name:
+                  required: false
+                  type: string | nil
+                  displayName: recipient_name
+                  description: ""
+                  example: "Brian Robinson"
+                line1:
+                  required: false
+                  type: string | nil
+                  displayName: line1
+                  description: ""
+                  example: "4th Floor"
+                line2:
+                  required: false
+                  type: string | nil
+                  displayName: line2
+                  description: ""
+                  example: "Unit #34"
+                city:
+                  required: false
+                  type: string | nil
+                  displayName: city
+                  description: ""
+                  example: "San Jose"
+                state:
+                  required: false
+                  type: string | nil
+                  displayName: state
+                  description: ""
+                  example: "CA"
+                phone:
+                  required: false
+                  type: string | nil
+                  displayName: phone
+                  description: ""
+                  example: "011862212345678"
+                postal_code:
+                  required: false
+                  type: string | nil
+                  displayName: postal_code
+                  description: ""
+                  example: "95131"
+                country_code:
+                  required: false
+                  type: string | nil
+                  displayName: country_code
+                  description: ""
+                  example: "US"
+      links:
+        type: array
+        required: false
+        items:
+          type: object
+          properties:
+            href:
+              required: false
+              type: string | nil
+              displayName: href
+              description: ""
+              example: "https://api-m.sandbox.paypal.com/v1/payments/payment/PAY-1B56960729604235TKQQIYVY"
+            rel:
+              required: false
+              type: string | nil
+              displayName: rel
+              description: ""
+              example: "self"
+            method:
+              required: false
+              type: string | nil
+              displayName: method
+              description: ""
+              example: "GET"
+
+
+
+
+
+              
+
+                    
+
+
+
+
+
+

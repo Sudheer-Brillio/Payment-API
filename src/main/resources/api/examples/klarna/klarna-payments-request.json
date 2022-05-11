@@ -1,0 +1,96 @@
+{
+  "purchase_country": "DE",
+  "purchase_currency": "EUR",
+  "locale": "de-DE",
+  "billing_address": {
+    "title": "",
+    "given_name": "kushi",
+    "family_name": "roy",
+    "email": "",
+    "phone": "983-743-2747",
+    "street_address": "1 Microsoft Way",
+    "street_address2": "",
+    "postal_code": "95207",
+    "city": "Redmond",
+    "region": "WA",
+    "country": "US"
+  },
+  "shipping_address": {
+    "title": "",
+    "given_name": "kushi",
+    "family_name": "roy",
+    "email": "",
+    "phone": "983-743-2747",
+    "street_address": "1 Microsoft Way",
+    "street_address2": "",
+    "postal_code": "95207",
+    "city": "Redmond",
+    "region": "WA",
+    "country": "US"
+  },
+  "order_amount": 32548,
+  "order_tax_amount": 1550,
+  "order_lines": [
+    {
+      "type": "physical",
+      "name": "Charcoal Single Pleat Striped Wool Suit",
+      "reference": "640188016372M",
+      "quantity": 1,
+      "merchant_data": "",
+      "unit_price": 29999,
+      "tax_rate": 0,
+      "total_amount": 29999,
+      "total_tax_amount": 0,
+      "total_discount_amount": 0,
+      "product_url": "https://aako-007.sandbox.us01.dx.commercecloud.salesforce.com/s/RefArch/charcoal-single-pleat-striped-wool-suit/640188016372M.html?lang=en_US",
+      "image_url": "https://aako-007.sandbox.us01.dx.commercecloud.salesforce.com/on/demandware.static/-/Sites-apparel-m-catalog/default/dweeec1db4/images/small/PG.55360RUBN4Q.CHARCWL.PZ.jpg",
+      "product_identifiers": {
+        "category_path": "Mens > Clothing > Suits"
+      }
+    },
+    {
+      "type": "shipping_fee",
+      "name": "Ground",
+      "reference": "001",
+      "quantity": 1,
+      "merchant_data": "",
+      "unit_price": 999,
+      "tax_rate": 0,
+      "total_amount": 999,
+      "total_tax_amount": 0,
+      "total_discount_amount": 0,
+      "product_url": null,
+      "image_url": null
+    },
+    {
+      "type": "sales_tax",
+      "name": "Sales Tax",
+      "reference": "Sales Tax",
+      "quantity": 1,
+      "merchant_data": "",
+      "unit_price": 1550,
+      "tax_rate": 0,
+      "total_amount": 1550,
+      "total_tax_amount": 0,
+      "total_discount_amount": 0,
+      "product_url": null,
+      "image_url": null
+    }
+  ],
+  "merchant_reference2": "",
+  "options": {
+    "color_details": "#303030",
+    "color_button": "#303030",
+    "color_button_text": "#303030",
+    "color_checkbox": "#303030",
+    "color_checkbox_checkmark": "#303030",
+    "color_header": "#303030",
+    "color_link": "#303030",
+    "color_border": "#303030",
+    "color_border_selected": "#303030",
+    "color_text": "#303030",
+    "color_text_secondary": "#303030",
+    "radius_border": "0px"
+  },
+  "merchant_data": null
+}
