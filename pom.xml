@@ -2,6 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
+
+	<groupId>com.mycompany</groupId>
+	<artifactId>www-paypal-sapi</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>mule-application</packaging>
+
+	<name>www-paypal-sapi</name>
+
   <groupId>com.mycompany</groupId>
 	<artifactId>www-klarna-sapi</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
@@ -13,6 +21,7 @@
 	<packaging>mule-application</packaging>
 
 	<name>www-sfcc-orders-eapi</name>
+
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -35,9 +44,11 @@
 				<version>${mule.maven.plugin.version}</version>
 				<extensions>true</extensions>
 
+
 				<configuration>
 					<classifier>mule-application</classifier>
 				</configuration>
+
 			</plugin>
 		</plugins>
 	</build>
@@ -62,11 +73,20 @@
 			<classifier>mule-plugin</classifier>
 		</dependency>
 		<dependency>
+
+			<groupId>org.mule.connectors</groupId>
+			<artifactId>mule-objectstore-connector</artifactId>
+			<version>1.2.1</version>
+			<classifier>mule-plugin</classifier>
+		</dependency>
+		<dependency>
+
 			<groupId>com.mulesoft.modules</groupId>
 			<artifactId>mule-secure-configuration-property-module</artifactId>
 			<version>1.2.3</version>
 			<classifier>mule-plugin</classifier>
 		</dependency>
+
 		<dependency>
 			<groupId>com.mulesoft.connectors</groupId>
 			<artifactId>mule-amqp-connector</artifactId>
@@ -85,6 +105,7 @@
 			<version>1.6.3</version>
 			<classifier>mule-plugin</classifier>
 		</dependency>
+
 	</dependencies>
 
 	<repositories>
